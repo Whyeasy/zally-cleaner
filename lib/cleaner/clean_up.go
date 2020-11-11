@@ -31,7 +31,7 @@ func getIDs(db *sql.DB, retention int) []int {
 
 	log.Info("Searching for entries before: ", dt)
 
-	rows, err := db.Query("SELECT id,created FROM api_review WHERE created < $1", dt)
+	rows, err := db.Query("SELECT id FROM api_review WHERE created < $1", dt)
 	if err != nil {
 		log.Error("Error executing query ", err)
 	}
