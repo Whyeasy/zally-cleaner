@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	//Import for compatibility with Postgres
 	_ "github.com/lib/pq"
 
 	log "github.com/sirupsen/logrus"
