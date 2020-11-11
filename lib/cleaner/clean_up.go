@@ -6,19 +6,14 @@ import (
 	"time"
 
 	"github.com/lib/pq"
+	//Import for compatibility with Postgres
 	_ "github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
 )
 
 var (
-	id      int
-	created string
+	id int
 )
-
-type entry struct {
-	id      int
-	created string
-}
 
 //CleanUp starts the cleaning process of entries older then the given retention period.
 func CleanUp(db *sql.DB, retention int, metrics bool) {
@@ -44,7 +39,7 @@ func getIDs(db *sql.DB, retention int) []int {
 
 	var result []int
 	for rows.Next() {
-		err := rows.Scan(&id, &created)
+		err := rows.Scan(&id)
 		if err != nil {
 			log.Error(err)
 		}
@@ -64,7 +59,6 @@ func copyEntries(db *sql.DB, ids []int) {
 	if err != nil {
 		log.Error(err)
 	}
-	defer tx.Rollback()
 
 	stmt, err := tx.Prepare(pq.CopyIn("rows_to_delete", "id"))
 	if err != nil {
@@ -78,7 +72,7 @@ func copyEntries(db *sql.DB, ids []int) {
 		}
 	}
 
-	stmt.Exec()
+	_, err = stmt.Exec()
 	if err != nil {
 		log.Error(err)
 	}
