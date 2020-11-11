@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - "master"
+      - "main"
     tags:
       - "!*"
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Lint
         uses: actions-contrib/golangci-lint@v1
         with:
