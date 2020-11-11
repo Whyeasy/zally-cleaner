@@ -14,7 +14,7 @@ import (
 //New Creates a new DB connection client.
 func New(c internal.Config) *sql.DB {
 
-	connStr := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=%s", c.User, c.Password, c.Host, c.Database, c.SSLMode)
+	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", c.User, c.Password, c.Host, c.Port, c.Database, c.SSLMode)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {

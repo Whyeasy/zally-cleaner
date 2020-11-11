@@ -18,7 +18,9 @@ Provide the Postgres user password: `--postgresPassword` or as env variable `POS
 
 ### Optional
 
-Change the SSL connection mode to Postgres; `--postgresSSL` or as env Variable `POSTGRES_SSL`. The default value is `require`.
+Change the port to use to connect to Postgres; `--postgresPort <string>` or as env variable `POSTGRES_PORT`. The default value is `"5432"`. Provide value as a string.
+
+Change the SSL connection mode to Postgres; `--postgresSSL` or as env variable `POSTGRES_SSL`. The default value is `require`.
 
 Change the retention period of the records to keep. `--zallyRetention <string>` or as env variable `ZALLY_RETENTION`. The default value is `"7"`. Provide value as a string and all entries older than the value will be deleted!
 

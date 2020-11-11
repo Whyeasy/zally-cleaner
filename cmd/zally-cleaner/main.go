@@ -21,6 +21,7 @@ func init() {
 	flag.StringVar(&config.Password, "postgresPassword", os.Getenv("POSTGRES_PASSWORD"), "Password to use for connecting to the Postgres Database")
 	flag.StringVar(&config.Host, "postgresHost", os.Getenv("POSTGRES_HOST"), "Host address of the Postgres Instance")
 	flag.StringVar(&config.Database, "postgresDatabase", os.Getenv("POSTGRES_DB"), "Database to select within the Postgres Instance")
+	flag.StringVar(&config.Port, "postgresPort", os.Getenv("POSTGRES_PORT"), "Port to use to connect to Postgres Instance")
 	flag.StringVar(&config.SSLMode, "postgresSSL", os.Getenv("POSTGRES_SSL"), "SSL mode to use to connect to the Postgres Instance")
 	flag.StringVar(&config.Retention, "zallyRetention", os.Getenv("ZALLY_RETENTION"), "Provide retention period of records in Days")
 	flag.StringVar(&config.Metrics, "zallyMetrics", os.Getenv("ZALLY_METRICS"), "By Default true, so it will clean the custom_label_mapping table.")
@@ -54,6 +55,12 @@ func parseConfig() error {
 		}
 		if f.Name == "postgresSSL" && (f.Value.String() == "" || f.Value.String() == "0") {
 			err = f.Value.Set("require")
+			if err != nil {
+				log.Error(err)
+			}
+		}
+		if f.Name == "postgresPort" && (f.Value.String() == "" || f.Value.String() == "0") {
+			err = f.Value.Set("5432")
 			if err != nil {
 				log.Error(err)
 			}
