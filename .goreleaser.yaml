@@ -21,7 +21,7 @@ snapshot:
 dockers:
   - image_templates:
       - "whyeasy/{{ .ProjectName }}:latest"
-      - "whyeasy/{{ .ProjectName }}:{{ .Tag }}"
+      - "whyeasy/{{ .ProjectName }}:{{ .Version }}"
 checksum:
   name_template: "checksums.txt"
 changelog:
