@@ -37,3 +37,15 @@ jobs:
         uses: goreleaser/goreleaser-action@v1
         with:
           args: release --snapshot --skip-publish --rm-dist
+      # - name: Scan image for vulnerabilities
+      #   uses: docker://docker.io/aquasec/trivy:0.2.1
+      #   with:
+      #     args: --cache-dir /var/lib/trivy --exit-code 1 --no-progress whyeasy/zally-cleaner:${{ github.sha }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "whyeasy/zally-cleaner:${{ github.sha }}"
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
